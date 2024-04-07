@@ -46,3 +46,25 @@ function keyDownHandler(e) {
       leftPressed = false;
     }
   }
+
+  function drawBall() {
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+  }
+  
+  function drawPaddles() {
+    ctx.beginPath();
+    ctx.rect(bottomPaddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+  
+    ctx.beginPath();
+    ctx.rect(topPaddleX, 0, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#DD9500";
+    ctx.fill();
+    ctx.closePath();
+  }

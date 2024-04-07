@@ -12,3 +12,21 @@ let ball = {
   dx: 3, 
   dy: 2,  
 };
+
+// Paddle properties
+let paddleHeight = 10;
+let paddleWidth = 75;
+let bottomPaddleX = (canvas.width - paddleWidth) / 2;
+let topPaddleX = (canvas.width - paddleWidth) / 2;
+let paddleSpeed = 5;  // Adjusted AI speed for better balance
+
+// Scores
+let userScore = 0;
+let aiScore = 0;
+
+
+let rightPressed = false;
+let leftPressed = false;
+
+document.addEventListener("keydown", keyDownHandler);
+document.addEventListener("keyup", keyUpHandler);

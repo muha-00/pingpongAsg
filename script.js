@@ -165,3 +165,9 @@ function keyDownHandler(e) {
     isGameRunning = false;
     alert(`${winner} wins!`);
   }
+
+document.getElementById('start').addEventListener('click', startGame);
+document.getElementById('pause').addEventListener('click', pauseGame);
+document.getElementById('restart').addEventListener('click', restartGame);
+
+draw();

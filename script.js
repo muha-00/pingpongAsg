@@ -122,3 +122,46 @@ function keyDownHandler(e) {
       topPaddleX -= paddleSpeed - 1;
     }
   }
+  
+  function resetBall() {
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+    ball.dx = (Math.random() < 0.5 ? 1 : -1) * 3;  // Mildly randomized direction
+    ball.dy = 2;  // Consistent vertical speed
+  }
+  
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    drawPaddles();
+    moveBall();
+    movePaddles();
+    drawScore();
+    if (isGameRunning) {
+      requestAnimationFrame(draw);
+    }
+  }
+  
+  function startGame() {
+    if (!isGameRunning) {
+      isGameRunning = true;
+      resetBall();
+      draw();
+    }
+  }
+  
+  function pauseGame() {
+    isGameRunning = false;
+  }
+  
+  function restartGame() {
+    userScore = 0;
+    aiScore = 0;
+    isGameRunning = false;
+    startGame();
+  }
+  
+  function endGame(winner) {
+    isGameRunning = false;
+    alert(`${winner} wins!`);
+  }

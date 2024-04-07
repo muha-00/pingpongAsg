@@ -68,3 +68,57 @@ function keyDownHandler(e) {
     ctx.fill();
     ctx.closePath();
   }
+
+  function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("User: " + userScore, 8, 20);
+    ctx.fillStyle = "#DD9500";
+    ctx.fillText("AI: " + aiScore, canvas.width - 65, 20);
+  }
+  
+  function moveBall() {
+    if (!isGameRunning) return;
+  
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+  
+    if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+      ball.dx = -ball.dx;
+    }
+  
+    if (ball.y + ball.radius > canvas.height) {
+      aiScore++;
+      if (aiScore >= 20) {  // Correcting the condition to 20
+        endGame('AI');
+      } else {
+        resetBall();
+      }
+    } else if (ball.y - ball.radius < 0) {
+      userScore++;
+      if (userScore >= 20) {  // Correcting the condition to 20
+        endGame('User');
+      } else {
+        resetBall();
+      }
+    }
+  
+    if ((ball.y + ball.radius > canvas.height - paddleHeight && ball.x > bottomPaddleX && ball.x < bottomPaddleX + paddleWidth) ||
+        (ball.y - ball.radius < paddleHeight && ball.x > topPaddleX && ball.x < topPaddleX + paddleWidth)) {
+      ball.dy = -ball.dy;
+    }
+  }
+  
+  function movePaddles() {
+    if (rightPressed && bottomPaddleX < canvas.width - paddleWidth) {
+      bottomPaddleX += paddleSpeed;
+    } else if (leftPressed && bottomPaddleX > 0) {
+      bottomPaddleX -= paddleSpeed;
+    }
+  
+    if (ball.dx > 0 && topPaddleX + paddleWidth / 2 < ball.x) {
+      topPaddleX += paddleSpeed - 1;  // AI is slightly slower
+    } else if (ball.dx > 0 && topPaddleX + paddleWidth / 2 > ball.x) {
+      topPaddleX -= paddleSpeed - 1;
+    }
+  }
